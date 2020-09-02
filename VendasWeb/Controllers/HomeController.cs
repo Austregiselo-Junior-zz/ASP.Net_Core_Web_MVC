@@ -17,7 +17,8 @@ namespace VendasWeb.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Seu teste de aplicação Asp Net Core.";
+            ViewData["Professor"] = "Austregíselo Junior";
 
             return View();
         }
