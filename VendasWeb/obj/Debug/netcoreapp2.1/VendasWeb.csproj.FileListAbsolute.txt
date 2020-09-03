@@ -41,3 +41,4 @@ C:\Users\Windows 10\OneDrive\Documentos\Cursos e concursos\Cursos profissionaliz
 C:\Users\Windows 10\OneDrive\Documentos\Cursos e concursos\Cursos profissionalizantes\C#\Cap18\VendasWeb\VendasWeb\obj\Debug\netcoreapp2.1\Razor\Views\Departments\Edit.cshtml.g.cs
 C:\Users\Windows 10\OneDrive\Documentos\Cursos e concursos\Cursos profissionalizantes\C#\Cap18\VendasWeb\VendasWeb\obj\Debug\netcoreapp2.1\Razor\Views\Departments\Index.cshtml.g.cs
 C:\Users\Windows 10\OneDrive\Documentos\Cursos e concursos\Cursos profissionalizantes\C#\Cap18\VendasWeb\VendasWeb\obj\Debug\netcoreapp2.1\VendasWeb.csproj.CoreCompileInputs.cache
+C:\Users\Windows 10\OneDrive\Documentos\Cursos e concursos\Cursos profissionalizantes\C#\Cap18\VendasWeb\VendasWeb\obj\Debug\netcoreapp2.1\Razor\Views\Sellers\Index.cshtml.g.cs
