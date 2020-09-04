@@ -44,6 +44,30 @@ namespace VendasWeb.Controllers
             _sellerService.Inser(seller); //Adição
             return RedirectToAction(nameof(Index)); //Redireciona a resposta pro view chamando o método "IActionResult Index()" e desse jeiro proteje caso futuramente tenha que mudar o método Index()
         }
-        
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value); //Pesquisa o id no DB
+            if (obj == null) // Se o ID no DB for null retorna NotFound()
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+;
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

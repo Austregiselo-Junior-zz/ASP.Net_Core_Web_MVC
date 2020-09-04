@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Remotion.Linq.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,19 @@ namespace VendasWeb.Services
         {
             _context.Add(obj); // Serviço de adicionar vendedor
             _context.SaveChanges(); //Confirmar adição no DB
+        }
+
+        public Seller FindById(int id)
+        {
+            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.Seller.Find(id);
+            _context.Seller.Remove(obj);
+            _context.SaveChanges();
+
         }
     }
 }
