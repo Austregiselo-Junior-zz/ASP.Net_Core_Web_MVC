@@ -1,8 +1,57 @@
-﻿
+﻿@model IEnumerable<VendasWeb.Models.Seller>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sellers";
 }
+<!--A declaração do model serve como uma correspondencia ao método View(list), lá do controller-->
+<h2>@ViewData["Title"]</h2>
 
-<h2>Sellers</h2>
-<p>Sellers index page</p>
+<table class="table table-striped table-hover" >
+    <thead>
+        <tr class="success"> 
+            <th>
+                @Html.DisplayNameFor(model => model.Name) <!--Renderezar o nome basiado no nome da classe -->
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email) 
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate) 
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseSalary) 
+            </th>
+            <th> </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <!--Linha -->
+            <td>
+                <!--Colunas -->
+                @Html.DisplayFor(modelItem => item.Name) <!--Conteúdo de cada coluna -->
+            </td>
+            <td>
+                <!--Colunas -->
+                @Html.DisplayFor(modelItem => item.Email) <!--Conteúdo de cada coluna -->
+            </td>
+            <td>
+                <!--Colunas -->
+                @Html.DisplayFor(modelItem => item.BirthDate) <!--Conteúdo de cada coluna -->
+            </td>
+            <td>
+                <!--Colunas -->
+                @Html.DisplayFor(modelItem => item.BaseSalary) <!--Conteúdo de cada coluna -->
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <!--Geração de link -->
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+ </table>
 

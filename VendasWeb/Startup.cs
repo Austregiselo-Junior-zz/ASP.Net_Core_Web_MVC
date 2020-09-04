@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VendasWeb.Data;
+using VendasWeb.Services;
 
 namespace VendasWeb
 {
@@ -41,6 +42,8 @@ namespace VendasWeb
                     builder.MigrationsAssembly("VendasWeb")));
 
             services.AddScoped<SeedingService>(); // Registra o serviço no sistema de injeção de dependencia
+            services.AddScoped<SellerService>(); //  O serviço pode ser injetado em outras classes
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
