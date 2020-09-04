@@ -23,7 +23,6 @@ namespace VendasWeb.Services
 
         public void Inser(Seller obj)
         {
-            obj.Department = _context.Department.First(); //Coloca o primeiro departamento cadastrado (só pra não dar erro)
             _context.Add(obj); // Serviço de adicionar vendedor
             _context.SaveChanges(); //Confirmar adição no DB
         }

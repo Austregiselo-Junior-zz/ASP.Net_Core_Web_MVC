@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Remotion.Linq.Utilities;
 using VendasWeb.Models;
 using VendasWeb.Services;
+using VendasWeb.Models.ViewModels;
 
 namespace VendasWeb.Controllers
 {
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService; // Criação de dependencia para injeção abaixo
+        private readonly DepartmentService _departmentService;
 
-        public SellersController(SellerService sellerService) //Injeção de dependencia 
+        public SellersController(SellerService sellerService, DepartmentService departmentService) //Injeção de dependencia 
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index() //Chamada do controlador
@@ -29,7 +32,9 @@ namespace VendasWeb.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departments = _departmentService.FindAll(); // Busca do DB todos os departamentos
+            var viewModel = new SellerFormViewModel { Departments = departments };
+            return View(viewModel);
         }
 
         [HttpPost] //Garante que o método é um post
