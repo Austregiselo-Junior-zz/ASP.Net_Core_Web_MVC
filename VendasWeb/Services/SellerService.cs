@@ -20,5 +20,11 @@ namespace VendasWeb.Services
         {
             return _context.Seller.ToList(); //Acessa a fonte de dados relacionados a vendedores (Sellers) e transforma em uma lista
         }
+
+        public void Inser(Seller obj)
+        {
+            _context.Add(obj); // Serviço de adicionar vendedor
+            _context.SaveChanges(); //Confirmar adição no DB
+        }
     }
 }
