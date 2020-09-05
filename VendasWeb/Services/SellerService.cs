@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using VendasWeb.Data;
 using VendasWeb.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace VendasWeb.Services
 {
@@ -42,5 +43,27 @@ namespace VendasWeb.Services
             _context.SaveChanges();
 
         }
-    }
-}
+
+        public void Update(Seller obj)
+        {
+            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                throw new DllNotFoundException("Id not found");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+                //OBJ: Quando é executado uma atualizaçãpo no DB, p DB pode gerar uma exerção de conflito de concorrência. 
+                //Para isso se faz:
+            }
+            catch (DBConcurrencyException e){ //Interceptando essa exceção de acesso a dados e jogando uma exceção em nivel se serviço, assim consewguimos segregar as camadas,
+            ;// Assim o Selles controller só tem que dar conta da exceção em nivel de serviço (Respeito de arquitetura pensada (imagem do MVC no PDF do capitolo) )
+            {
+
+                throw new DBConcurrencyException(e.Message);
+            }
+
+            }
+        }
+    } }

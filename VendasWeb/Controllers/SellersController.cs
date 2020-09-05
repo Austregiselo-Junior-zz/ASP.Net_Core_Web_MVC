@@ -8,6 +8,7 @@ using Remotion.Linq.Utilities;
 using VendasWeb.Models;
 using VendasWeb.Services;
 using VendasWeb.Models.ViewModels;
+using VendasWeb.Services.Exceptions;
 
 namespace VendasWeb.Controllers
 {
@@ -59,7 +60,7 @@ namespace VendasWeb.Controllers
             }
 
             return View(obj);
-;
+            ;
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -83,6 +84,46 @@ namespace VendasWeb.Controllers
             }
 
             return View(obj);
+        }
+
+        public IActionResult Edit(int? id) //Abrir a tela pra editar o vendedor
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var obj = _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Department> departments = _departmentService.FindAll();
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (id != seller.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _sellerService.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotfoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            } 
+
         }
     }
 }
