@@ -44,6 +44,13 @@ namespace VendasWeb.Controllers
         [ValidateAntiForgeryToken]// Prevenção de ataque CSRF => Aproveita a seção de autenticação e envia dados maliciosos
         public IActionResult Create(Seller seller) //Recebe a requisição do view
         {
+            if (!ModelState.IsValid) //Validação caso o Java Scripti do navegador esteja desabilitado, assim o sistema não deixa cadastrar nada vazio
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            } // Isso valida a requisição
+
             _sellerService.Inser(seller); //Adição
             return RedirectToAction(nameof(Index)); //Redireciona a resposta pro view chamando o método "IActionResult Index()" e desse jeiro proteje caso futuramente tenha que mudar o método Index()
         }
@@ -52,7 +59,7 @@ namespace VendasWeb.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not provided"});
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             var obj = _sellerService.FindById(id.Value); //Pesquisa o id no DB
@@ -108,6 +115,12 @@ namespace VendasWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            if (!ModelState.IsValid) //Validação caso o Java Scripti do navegador esteja desabilitado, assim o sistema não deixa cadastrar nada vazio
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
