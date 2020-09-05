@@ -9,6 +9,8 @@ using VendasWeb.Models;
 using VendasWeb.Services;
 using VendasWeb.Models.ViewModels;
 using VendasWeb.Services.Exceptions;
+using System.Diagnostics;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace VendasWeb.Controllers
 {
@@ -50,13 +52,13 @@ namespace VendasWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided"});
             }
 
             var obj = _sellerService.FindById(id.Value); //Pesquisa o id no DB
             if (obj == null) // Se o ID no DB for null retorna NotFound()
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(obj);
@@ -74,13 +76,13 @@ namespace VendasWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             var obj = _sellerService.FindById(id.Value); //Pesquisa o id no DB
             if (obj == null) // Se o ID no DB for null retorna NotFound()
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(obj);
@@ -90,12 +92,12 @@ namespace VendasWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
             var obj = _sellerService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             List<Department> departments = _departmentService.FindAll();
@@ -108,22 +110,31 @@ namespace VendasWeb.Controllers
         {
             if (id != seller.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
             }
             try
             {
                 _sellerService.Update(seller);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotfoundException)
+            catch (NotfoundException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyException)
+            catch (DbConcurrencyException e) //Também podemos deletar esse tratamento se caso no catch acima usamos um super tipo, (Up Casting) 
             {
-                return BadRequest();
-            } 
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
+        }
 
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier//Pega o id interno da requisição
+            };
+            return View(viewModel);
         }
     }
 }
