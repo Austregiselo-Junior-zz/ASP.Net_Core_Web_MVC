@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VendasWeb.Data;
 using VendasWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace VendasWeb.Services
 {
@@ -30,7 +31,8 @@ namespace VendasWeb.Services
 
         public Seller FindById(int id)
         {
-            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);// Pesquisa o departamento e o ID do vendedor
+            //Carregamento de um objeto associado a um objeto principal "eager loading"
         }
 
         public void Remove(int id)

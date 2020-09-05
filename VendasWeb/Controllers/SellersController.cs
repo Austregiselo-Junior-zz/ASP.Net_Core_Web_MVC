@@ -69,5 +69,20 @@ namespace VendasWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value); //Pesquisa o id no DB
+            if (obj == null) // Se o ID no DB for null retorna NotFound()
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
     }
 }
