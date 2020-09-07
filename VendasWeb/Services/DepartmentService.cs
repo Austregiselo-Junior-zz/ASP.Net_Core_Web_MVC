@@ -20,6 +20,7 @@ namespace VendasWeb.Services
         {
             return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
+        //OBS o await é importnte para deixar a atividade assincrona, ele tem que esperar as buscas
         /*
         public List<Department> FindAll() // Método para retornar os departamentos ordenados por nome (implementação sincrona)
         {
