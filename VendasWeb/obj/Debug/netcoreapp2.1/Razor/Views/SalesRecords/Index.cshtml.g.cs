@@ -79,7 +79,7 @@ Write(ViewData["Title"]);
             WriteLiteral("        ");
             EndContext();
             BeginContext(286, 1211, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "92c09e6329e147399d4278e033bb8d41", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8eb6cdcf2e7d46dd882e35816b4945ad", async() => {
                 BeginContext(342, 118, true);
                 WriteLiteral("\r\n\r\n            <fieldset>\r\n                <legend>Simple search</legend>\r\n                <div class=\"form-group\">\r\n");
                 EndContext();
@@ -129,7 +129,7 @@ Write(ViewData["Title"]);
             WriteLiteral("        ");
             EndContext();
             BeginContext(1731, 1094, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "48d524f4f79b40a8b6549270ae39ff2a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cc2e44bd134f494aa9f5a728ab5411ab", async() => {
                 BeginContext(1789, 207, true);
                 WriteLiteral("\r\n            <fieldset>\r\n                <legend>Grouping search</legend>\r\n                <div class=\"form-group\">\r\n                    <label for=\"minDate\" class=\"col-lg-2 control-label\">Min Date</label> ");
                 EndContext();

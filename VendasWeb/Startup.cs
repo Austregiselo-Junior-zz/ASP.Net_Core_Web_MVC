@@ -46,6 +46,7 @@ namespace VendasWeb
             services.AddScoped<SeedingService>(); // Registra o serviço no sistema de injeção de dependencia
             services.AddScoped<SellerService>(); //  O serviço pode ser injetado em outras classes
             services.AddScoped<DepartmentService>();
+            services.AddScoped<SalesRecordService>();
 
         }
 
