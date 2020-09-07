@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VendasWeb.Data;
 using VendasWeb.Models;
 
@@ -14,10 +16,16 @@ namespace VendasWeb.Services
             _context = context;
         }
 
-        public List<Department> FindAll() // Método para retornar os departamentos ordenados por nome
+        public async Task<List<Department>> FindAllAsync() // Implementação Assincrona
+        {
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
+        }
+        /*
+        public List<Department> FindAll() // Método para retornar os departamentos ordenados por nome (implementação sincrona)
         {
             return _context.Department.OrderBy(x=>x.Name).ToList();
         }
+        */
 
 
     }

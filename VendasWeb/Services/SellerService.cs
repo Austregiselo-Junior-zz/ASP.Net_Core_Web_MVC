@@ -19,51 +19,55 @@ namespace VendasWeb.Services
             _context = context;
         }
 
-        public List<Seller> FindAll()
+        public async Task<List<Seller>> FindAllAsync()
         {
-            return _context.Seller.ToList(); //Acessa a fonte de dados relacionados a vendedores (Sellers) e transforma em uma lista
-        }
+            return await _context.Seller.ToListAsync(); //Acessa a fonte de dados relacionados a vendedores (Sellers) e transforma em uma lista
+        }// OBS: Conexôes com DB são açõee pesadas e lentas, por isso essa operação dever assincrona, ou seja, o APP não fica bloqueado durante o acesso.
+        // Em casos de conexões sincronas a aplicação fica travada e há perda de performace
 
-        public void Inser(Seller obj)
+        public async Task InserAsync(Seller obj)
         {
             _context.Add(obj); // Serviço de adicionar vendedor
-            _context.SaveChanges(); //Confirmar adição no DB
+            await _context.SaveChangesAsync(); //Confirmar adição no DB
         }
 
-        public Seller FindById(int id)
+        public async Task<Seller> FindByIdAsync(int id)
         {
-            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);// Pesquisa o departamento e o ID do vendedor
+            return await _context.Seller.Include(obj => obj.Department).FirstOrDefaultAsync(obj => obj.Id == id);// Pesquisa o departamento e o ID do vendedor
             //Carregamento de um objeto associado a um objeto principal "eager loading"
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.Seller.Find(id);
+            var obj = await _context.Seller.FindAsync(id);
             _context.Seller.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
         }
 
-        public void Update(Seller obj)
+        public async Task UpdateAsync(Seller obj)
         {
-            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            bool hasAny = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
             {
                 throw new DllNotFoundException("Id not found");
             }
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 //OBJ: Quando é executado uma atualizaçãpo no DB, p DB pode gerar uma exerção de conflito de concorrência. 
                 //Para isso se faz:
             }
-            catch (DBConcurrencyException e){ //Interceptando essa exceção de acesso a dados e jogando uma exceção em nivel se serviço, assim consewguimos segregar as camadas,
-            ;// Assim o Selles controller só tem que dar conta da exceção em nivel de serviço (Respeito de arquitetura pensada (imagem do MVC no PDF do capitolo) )
-            {
+            catch (DBConcurrencyException e)
+            { //Interceptando essa exceção de acesso a dados e jogando uma exceção em nivel se serviço, assim consewguimos segregar as camadas,
+                ;// Assim o Selles controller só tem que dar conta da exceção em nivel de serviço (Respeito de arquitetura pensada (imagem do MVC no PDF do capitolo) )
+                {
 
-                throw new DBConcurrencyException(e.Message);
-            }
+                    throw new DBConcurrencyException(e.Message);
+                }
 
             }
         }
-    } }
+    }
+}
