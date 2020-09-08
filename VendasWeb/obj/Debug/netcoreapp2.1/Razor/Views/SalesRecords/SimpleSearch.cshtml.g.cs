@@ -78,7 +78,7 @@ Write(ViewData["Title"]);
             WriteLiteral("    <div class=\"container-fluid\">\r\n        ");
             EndContext();
             BeginContext(385, 664, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f4f00fc9cfc4a80853ad2ec1db0b9ce", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8154f0c4a679483aa35baaa4809ca170", async() => {
                 BeginContext(437, 215, true);
                 WriteLiteral("\r\n            <div class=\"form-group\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"minDate\">Min Date</label>\r\n                    <input type=\"date\" class=\"form-control\" name=\"minDate\"");
                 EndContext();

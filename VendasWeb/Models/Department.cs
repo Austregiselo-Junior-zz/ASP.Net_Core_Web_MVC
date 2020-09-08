@@ -25,9 +25,9 @@ namespace VendasWeb.Models
             Sellers.Add(seller);
         }
 
-        public double TotalSales(DateTime initial, DateTime final)
+        public double TotalSales(DateTime initial, DateTime final) // Calcula o total de vendas no departamento dado as datas
         {
-            return Sellers.Sum(Seller => Seller.TotalSales(initial, final));
+            return Sellers.Sum(Seller => Seller.TotalSales(initial, final));// O processo foi delegado para o departamento e o total de vendas do vendedor foi delegado ao vendedor
         }
     }
 }
